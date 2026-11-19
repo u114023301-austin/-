@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>藥材跑考｜本草辨識</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="questions.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="藥材跑考首頁">
+        <span class="brand-mark" aria-hidden="true">藥</span>
+        <span class="brand-copy">
+          <strong>藥材跑考</strong>
+          <span>HERBAL IDENTIFICATION</span>
+        </span>
+      </a>
+      <div class="topbar-note"><span class="status-dot"></span> 本草辨識・計時問答</div>
+    </header>
+
+    <main>
+      <section id="home-screen" class="screen home-screen">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> HERBAL FIELD TEST</p>
+          <h1>看圖識藥，<br><span>開始你的跑考。</span></h1>
+          <p class="hero-description">從藥材圖庫隨機抽題，在倒數時間內認出每一味本草。專注觀察，憑記憶作答。</p>
+          <div class="exam-options" role="group" aria-label="選擇考試範圍">
+            <button class="exam-option" type="button" data-exam="midterm">
+              <strong>期中範圍</strong><span>第 1–6、11–16 組・抽 100 題</span>
+            </button>
+            <button class="exam-option" type="button" data-exam="final">
+              <strong>期末範圍</strong><span>全部藥材・隨機 100 題</span>
+            </button>
+          </div>
+          <p id="start-error" class="inline-error" role="alert" hidden></p>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-ring art-ring-one"></div>
+          <div class="art-ring art-ring-two"></div>
+          <div class="art-leaf leaf-one"></div>
+          <div class="art-leaf leaf-two"></div>
+          <div class="art-leaf leaf-three"></div>
+          <div class="art-label"><span>本草</span><strong>識藥</strong><small>HERBAL STUDY</small></div>
+          <span class="art-seal">藥</span>
+        </div>
+
+        <div class="rules-grid" aria-label="測驗規則">
+          <article class="rule-card">
+            <span class="rule-number">01</span>
+            <span class="rule-icon" aria-hidden="true">▧</span>
+            <div><strong><span id="gallery-count">—</span> 張圖庫</strong><p>依選定考試範圍不重複抽題</p></div>
+          </article>
+          <article class="rule-card">
+            <span class="rule-number">02</span>
+            <span class="rule-icon" aria-hidden="true">◷</span>
+            <div><strong>每回合 75 秒</strong><p>每 5 題一回合，時間到依答案判定</p></div>
+          </article>
+          <article class="rule-card">
+            <span class="rule-number">03</span>
+            <span class="rule-icon" aria-hidden="true">＋</span>
+            <div><strong>答對一題 1 分</strong><p>輸入藥材名稱，答錯不計分</p></div>
+          </article>
+        </div>
+        <footer class="home-footer">
+          <span>觀察藥材形態，辨認本草真貌</span>
+          <span id="session-summary">期中 100 題 · 20 回合 · 滿分 100</span>
+        </footer>
+      </section>
+
+      <section id="quiz-screen" class="screen quiz-screen" hidden>
+        <div class="quiz-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> HERBAL FIELD TEST</p>
+            <h1>藥材辨識</h1>
+          </div>
+          <div class="round-chip"><span class="status-dot"></span><span id="round-label">第 1 回合</span></div>
+        </div>
+
+        <div class="quiz-layout">
+          <section class="question-card" aria-label="本回合藥材題目">
+            <div class="question-topline">
+              <span id="question-number">QUESTIONS 01–05 / 100</span>
+              <span id="round-question">本回合 5 題</span>
+            </div>
+            <form id="answer-form" class="answer-form">
+              <div id="round-questions" class="round-questions" aria-label="本回合五題"></div>
+              <div class="round-submit-row">
+                <button id="submit-button" class="button button-primary answer-submit" type="submit">送出本回合答案 <span aria-hidden="true">↗</span></button>
+              </div>
+              <div class="answer-meta">
+                <span id="answer-hint">每張圖片對應一個答案格</span>
+                <span id="score-label">得分 0</span>
+              </div>
+              <div id="feedback" class="feedback" aria-live="polite" hidden></div>
+              <button id="next-button" class="button button-secondary next-button" type="button" hidden>進入下一回合 <span aria-hidden="true">→</span></button>
+            </form>
+          </section>
+
+          <aside class="quiz-sidebar">
+            <section class="timer-card" aria-label="回合倒數">
+              <div class="sidebar-title"><span>本回合倒數</span><span class="timer-icon" aria-hidden="true">◷</span></div>
+              <div id="timer-display" class="timer-display" role="timer" aria-live="off">01:15</div>
+              <div class="timer-track" role="progressbar" aria-label="剩餘時間" aria-valuemin="0" aria-valuemax="75" aria-valuenow="75">
+                <span id="timer-bar"></span>
+              </div>
+              <p>完成 5 題後進入下一回合</p>
+            </section>
+
+            <section class="score-card">
+              <div class="sidebar-title"><span>目前成績</span><span class="score-icon" aria-hidden="true">✳</span></div>
+              <div class="score-total"><strong id="score-value">0</strong><span>分</span></div>
+              <div class="score-divider"></div>
+              <div class="score-detail"><span>答對題數</span><strong id="correct-count">0 <small>/ 100</small></strong></div>
+            </section>
+
+            <section class="progress-card">
+              <div class="sidebar-title"><span>測驗進度</span><span id="progress-value">1%</span></div>
+              <div class="progress-track"><span id="progress-bar"></span></div>
+              <div class="progress-ends"><span>START</span><span id="progress-total">51 題</span></div>
+            </section>
+
+            <button id="quit-button" class="quit-button" type="button">結束本次測驗 <span aria-hidden="true">↗</span></button>
+          </aside>
+        </div>
+      </section>
+
+      <section id="break-screen" class="screen intermission-screen" hidden>
+        <div class="intermission-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> ROUND COMPLETE</p>
+        <h1 id="break-title">第 1 回合完成</h1>
+        <p id="break-description" class="intermission-copy">回合成績已記錄，準備好繼續了嗎？</p>
+        <div class="intermission-stats">
+          <div><strong id="round-score">0</strong><span>本回合答對</span></div>
+          <div><strong id="break-total-score">0</strong><span>目前總分</span></div>
+        </div>
+        <button id="continue-button" class="button button-primary" type="button">開始下一回合 <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section id="result-screen" class="screen result-screen" hidden>
+        <div class="intermission-mark result-mark" aria-hidden="true">✳</div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> TEST COMPLETE</p>
+        <h1>跑考完成</h1>
+        <p class="intermission-copy">百題辨識已完成，看看這次的成果。</p>
+        <div class="final-score"><strong id="final-score">0</strong><span>/ 100 分</span></div>
+        <div class="result-details"><span>答對 <strong id="final-correct">0</strong> 題</span><span id="final-rounds">完成 20 回合</span></div>
+        <section class="review-section" aria-labelledby="review-title">
+          <div class="review-heading">
+            <h2 id="review-title">需要複習的題目</h2>
+            <span id="review-count">0 題</span>
+          </div>
+          <p id="review-empty" class="review-empty">本次沒有錯誤或標記有疑問的題目。</p>
+          <div id="review-list" class="review-list"></div>
+        </section>
+        <button id="restart-button" class="button button-primary" type="button">再考一次 <span aria-hidden="true">↻</span></button>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
