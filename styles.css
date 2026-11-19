@@ -121,8 +121,8 @@ h1 { margin: 0; color: var(--ink); font-size: clamp(38px, 5vw, 58px); font-weigh
 .round-question-card.is-correct { border-color: #9ab99a; background: #f0f7ed; }
 .round-question-card.is-incorrect { border-color: #d7a29a; background: #fdf1ee; }
 .round-question-number { display: block; margin-bottom: 10px; color: #7e877b; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
-.round-photo-frame { position: relative; min-height: 260px; height: min(62vh, 680px); display: grid; place-items: center; overflow: hidden; border-radius: 3px; background: #e9f2ee; }
-.round-photo-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.round-photo-frame { position: relative; display: grid; place-items: center; overflow: hidden; border-radius: 3px; background: #e9f2ee; }
+.round-photo-frame img { display: block; width: 100%; height: auto; object-fit: contain; }
 .round-question-card label { display: block; margin: 12px 0 6px; color: #6f786e; font-size: 11px; }
 .round-answer-input { width: 100%; height: 43px; padding: 0 10px; border: 1px solid #dfe2d7; border-radius: 4px; color: var(--ink); background: #fffefa; font-size: 13px; }
 .round-answer-input:disabled { color: #687365; background: #f2f4ee; }
@@ -228,7 +228,6 @@ h1 { margin: 0; color: var(--ink); font-size: clamp(38px, 5vw, 58px); font-weigh
   .timer-card { grid-column: span 2; }
   .progress-card { grid-column: span 2; }
   .quit-button { grid-column: span 2; }
-  .round-photo-frame { height: min(68vh, 560px); }
   .review-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -238,7 +237,6 @@ h1 { margin: 0; color: var(--ink); font-size: clamp(38px, 5vw, 58px); font-weigh
   .brand-copy span { font-size: 8px; }
   .hero-copy h1 { font-size: 38px; }
   .question-card { padding: 15px 13px; }
-  .round-photo-frame { height: min(65vh, 460px); }
   .round-submit-row .answer-submit { width: 100%; }
   .quiz-heading h1 { font-size: 25px; }
   .quiz-sidebar { gap: 8px; }
