@@ -127,6 +127,10 @@ h1 { margin: 0; color: var(--ink); font-size: clamp(38px, 5vw, 58px); font-weigh
 .round-answer-input { width: 100%; height: 43px; padding: 0 10px; border: 1px solid #dfe2d7; border-radius: 4px; color: var(--ink); background: #fffefa; font-size: 13px; }
 .round-answer-input:disabled { color: #687365; background: #f2f4ee; }
 .answer-line { display: flex; align-items: center; gap: 8px; }
+.answer-reveal { display: grid; gap: 5px; margin-top: 11px; padding: 10px 12px; border-radius: 4px; color: #687365; background: #f2f4ee; font-size: 12px; }
+.answer-reveal strong { font-size: 13px; }
+.answer-reveal.is-correct { color: #2f6942; background: #edf5ec; }
+.answer-reveal.is-incorrect { color: #9b4e43; background: #fbefec; }
 .question-flag { flex: 0 0 43px; width: 43px; height: 43px; border: 1px solid #dfe2d7; border-radius: 4px; color: #a4aa9d; background: #fffefa; font-size: 17px; line-height: 1; }
 .question-flag:hover, .question-flag.is-marked { border-color: var(--orange); color: var(--orange); background: #fff5e9; }
 .photo-corner { position: absolute; width: 12px; height: 12px; border-color: rgba(53, 93, 67, .45); border-style: solid; pointer-events: none; }

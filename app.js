@@ -202,7 +202,10 @@
       const answerLine = document.createElement("div");
       answerLine.className = "answer-line";
       answerLine.append(input, flag);
-      card.append(number, frame, label, answerLine);
+      const answerReveal = document.createElement("div");
+      answerReveal.className = "answer-reveal";
+      answerReveal.hidden = true;
+      card.append(number, frame, label, answerLine, answerReveal);
       elements.roundQuestions.append(card);
     });
 
@@ -253,6 +256,17 @@
       const card = input.closest(".round-question-card");
       card.classList.toggle("is-correct", correct);
       card.classList.toggle("is-incorrect", !correct);
+      const answerReveal = card.querySelector(".answer-reveal");
+      answerReveal.classList.toggle("is-correct", correct);
+      answerReveal.classList.toggle("is-incorrect", !correct);
+      const result = document.createElement("strong");
+      result.textContent = correct ? "答對" : "答錯";
+      const userAnswer = document.createElement("span");
+      userAnswer.textContent = `你的答案：${input.value.trim() || "未作答"}`;
+      const correctAnswer = document.createElement("span");
+      correctAnswer.textContent = `正確答案：${roundQuestions[offset].answer}`;
+      answerReveal.replaceChildren(result, userAnswer, correctAnswer);
+      answerReveal.hidden = false;
       const flagged = card.querySelector(".question-flag").getAttribute("aria-pressed") === "true";
       if (!correct || flagged) {
         reviewItems.push({
